@@ -1,0 +1,38 @@
+<view class='head-warp'>
+  <image wx:if="{{imageURL&&imageURL!='null'}}" mode='aspectFill' class='head' src="{{imageURL}}" bindtap='addImg'></image>
+  <image wx:else class='head' src="../image/add_pickupphone@3x.png" bindtap='addImg'></image>
+</view>
+<!--卡信息  -->
+<view class='card-info'>
+  <view class='item'>
+    <label>学生姓名</label>
+    <view>{{stu}}</view>
+  </view>
+  <view class='item'>
+    <label>接送人</label>
+    <view class='select'>
+      <picker class='input selectArea' bindchange="bindPickerChange" value="{{index}}" range="{{Array}}">
+        <view wx:if="{{!name&&!Array[index]||name=='null'}}" class='placeholder'>请选择</view>
+         <view class='picker' wx:elif="{{name&&!Array[index]&&name!='null'}}">{{name}}</view> 
+        <view wx:else class='picker'>{{Array[index]}}</view>
+      </picker>
+      <image class='icon_right' src='../image/icon_right.png'></image>
+    </view>
+  </view>
+  <view class='item'>
+    <label>卡号</label>
+    <input bindinput='setCard' type='text' maxlength='20' placeholder='请输入' class='flex' value="{{card=='null'?'':card}}"></input>
+  </view>
+</view>
+<!--卡说明  -->
+<view class='card-intro'>
+  <image class='card' mode='scaleToFill' src='../image/card@3x.png'></image>
+  <view>温馨提示:</view>
+  <view>1.请您按图中卡号位置查看您的保平安卡号，将卡号属兔</view>
+  <view>2.接送人设置用于学校比对当前接送学生的人与您预留的接送人照片是否一致；出于保护学生安全的考虑，请您务必进行设置，最多可设置4位接送学生的家长信息</view>
+</view>
+<!--按钮  -->
+<view class='btn-wrap'>
+   <view wx:if="{{cardInit&&cardInit!='null'}}" bindtap='unbundle' class='btn' hover-class='hover' style='margin-right:5px'>解绑</view> 
+  <view bindtap='save' class='btn btn-primary' hover-class='hover'>保存</view>
+</view>

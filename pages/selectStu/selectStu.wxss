@@ -1,0 +1,47 @@
+.select-btn{
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 20rpx;
+}
+.mb2{
+  margin-bottom:2px;
+}
+page{
+  background: #f0f0f0;
+}
+.wrap{
+  background: #fff;
+}
+/*查询结果 */
+.result{
+  width: 90%;
+  margin: 30rpx auto;
+}
+.addTime{
+  margin-top: 10rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+.result .item{
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:30rpx;
+  box-shadow: 0 0 3px #ccc;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}
+.result .item .name{
+  font-weight: bold;
+  margin-right: 20rpx;
+}
+.result .item .garden{
+ color: #666;
+}
+.result .item .bind{
+ background: #4AB848;
+ padding:10rpx;
+ border-radius: 10rpx;
+ color: #fff;
+}

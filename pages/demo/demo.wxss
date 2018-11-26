@@ -1,0 +1,52 @@
+.wrap{
+  width: 90%;
+  margin: 0 auto;
+}
+.explain{
+  text-align: center;
+  color: #666;
+  font-size: 30rpx;
+  margin: 10px auto;
+}
+.temp{
+  border-radius: 10rpx;
+  background: #fff;
+  padding:80rpx 30rpx 30rpx;
+  position: relative;
+  box-shadow: 1px 1px 3px #ccc;
+  margin-bottom: 30rpx;
+}
+.temp .item{
+ display: flex;
+ align-items: center;
+ justify-content: flex-start;
+ margin-bottom: 30rpx;
+}
+.w{
+  width: 45%;
+}
+.flex{
+ flex: 1
+}
+.temp .title{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 160rpx;
+  height: 60rpx;
+}
+.temp .title2{
+  width: 190rpx;
+}
+.temp .text{
+  position: absolute;
+  left:16rpx;
+  top: 12rpx;
+  font-size: 30rpx;
+  color: #fff;
+  z-index: 8
+}
+
+.temp .item text{
+  color: #666
+}

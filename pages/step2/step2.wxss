@@ -1,0 +1,18 @@
+.row label {
+  width: 25%;
+}
+
+.line .item {
+  background: #4ab848;
+}
+
+.line .last {
+  background: #ccc;
+}
+
+.line .last::after {
+  background: #4ab848;
+}
+.wrap{
+  padding-top: 0;
+}

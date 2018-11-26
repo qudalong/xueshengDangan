@@ -1,0 +1,55 @@
+<view class='wrap'>
+  <view class='temp'>
+    <view class='text'>班级信息</view>
+    <image class='title' mode='scaleToFill' src='../image/title_green@3x.png'></image>
+    <view class='item'>
+      <label>班级：</label>
+      <text>托一班</text>
+    </view>
+  </view>
+  <view class='temp'>
+    <view class='text'>学生信息</view>
+    <image class='title' mode='scaleToFill' src='../image/title_yellow@3x.png'></image>
+    <view class='item'>
+      <view class='w'>
+        <label>学生：</label>
+        <text>黄豆豆</text>
+      </view>
+      <view class='flex'>
+        <label>班级：</label>
+        <text>托二班</text>
+      </view>
+    </view>
+    <view class='item'>
+      <view class='w'>
+        <label>性别：</label>
+        <text>男</text>
+      </view>
+      <view class='flex'>
+        <label>出生日期：</label>
+        <text>2016-10-22</text>
+      </view>
+    </view>
+
+  </view>
+  <view class='temp'>
+    <view class='text'>监护人信息</view>
+    <image class='title title2' mode='scaleToFill' src='../image/title_blue@3x.png'></image>
+    <view class='item'>
+      <label>第一监护人：</label>
+      <text>妈妈</text>
+    </view>
+    <view class='item'>
+      <label>手机号：</label>
+      <text>15139413976</text>
+    </view>
+    <view class='item'>
+      <label>第二监护人：</label>
+      <text>爸爸</text>
+    </view>
+    <view class='item'>
+      <label>手机号：</label>
+      <text>15139413977</text>
+    </view>
+  </view>
+</view>

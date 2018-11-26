@@ -1,0 +1,26 @@
+<view class='out-wrap'>
+  <input class='enter' bindinput='enter' maxlength='6' type='number' placeholder='输入园所码'></input>
+  <view class='btn' bindtap='startEnterRoll'>开始录档案</view>
+  <view class='text-wrap'>
+    <view class='item'>
+      <text>1</text>
+      <view>学校码可咨询老师或拨打客服热线获得客服热线：0371-65718573</view>
+    </view>
+    <view class='item'>
+      <text>2</text>
+      <view>请规范填写学生档案</view>
+    </view>
+  </view>
+  <view class='nav-out'>
+    <view class='nav-wrap'>
+      <view class='item' bindtap='selectRoll'>
+        <text>查询档案</text>
+        <image class='nav-icon' src='../image/archives_icon@3x.png'></image>
+      </view>
+      <view class='item' bindtap='bindCard'>
+        <text>接送卡绑定</text>
+        <image class='nav-icon' src='../image/binding_icon@3x.png'></image>
+      </view>
+    </view>
+  </view>
+</view>

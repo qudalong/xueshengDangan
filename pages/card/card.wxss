@@ -1,0 +1,50 @@
+.head-warp{
+  text-align: center;
+  margin: 40rpx 0;
+}
+.head-warp .head{
+  height:240rpx;
+  width:240rpx;
+  border-radius: 6rpx;
+}
+.head-warp .select{
+  color: #4AB848;
+  margin: 20rpx;
+}
+.schoolName{
+  font-size: 28rpx;
+}
+.name{
+  margin-top: 5px;
+}
+/*卡 */
+.card-item{
+  width: 80%;
+  margin:30rpx auto;
+  padding: 30rpx;
+  border: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  border-radius:10rpx;
+  box-shadow: 1px 1px 2px #ccc;
+}
+.card-item .head{
+ height:200rpx;
+  width:200rpx;
+  border-radius: 6rpx;
+  margin-right: 20rpx;
+}
+.noset{
+  color: #666;
+}
+.card-item .info{
+  flex: 1;
+ height:200rpx;
+ position: relative;
+}
+.card-item .info .num{
+ position: absolute;
+ bottom: 0;
+ left: 0;
+ width: 100%;
+}

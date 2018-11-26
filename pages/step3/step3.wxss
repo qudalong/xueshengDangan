@@ -1,0 +1,44 @@
+
+.line .item {
+  background: #4ab848;
+}
+.line .item::before {
+  background: #4ab848;
+}
+.line .last::after {
+  background: #4ab848;
+}
+.wrap{
+  padding-top: 0;
+}
+.info-list{
+  padding:40rpx 20rpx;
+  text-align: center;
+  font-size: 34rpx;
+  line-height: 1.6;
+}
+.select{
+  color: #4ab848;
+   font-size: 32rpx;
+}
+.code{
+  width: 180rpx;
+  height: 180rpx;
+  margin-top: 30rpx
+}
+.midel{
+  font-size: 30rpx;
+  margin:20rpx 0 40rpx;
+
+}
+.mark{
+  color: #666;
+  font-size:28rpx;
+  margin-top: 20rpx;
+}
+.explain{
+  background: #EFEFEF;
+  padding:30rpx 10rpx;
+  margin: 0 auto;
+  border-radius: 10rpx;
+}

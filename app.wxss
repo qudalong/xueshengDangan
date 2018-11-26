@@ -1,0 +1,256 @@
+/**app.wxss**/
+
+page {
+  font-size: 32rpx;
+}
+
+.hover {
+  opacity: 0.8;
+}
+
+.icon_right {
+  height: 40rpx;
+  width: 40rpx;
+}
+
+.btn-init {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background: #ccc;
+  color: #fff;
+  font-size: 32rpx;
+  border-radius: 10rpx;
+}
+
+.btn-primary {
+  background: #4ab848;
+}
+
+.fixd {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 900;
+}
+
+/*线  */
+
+/*导航  */
+
+.nav-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 70rpx;
+}
+
+.nav-wrap .item {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: pink;
+  padding: 30rpx;
+  border-radius: 10rpx;
+}
+
+.nav-wrap .item:last-of-type {
+  background: #ccc;
+}
+
+.nav-wrap .item text {
+  font-size: 36rpx;
+}
+
+.nav-icon {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.wrap {
+  padding: 30rpx;
+}
+
+/*线  */
+
+.line {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.line .item {
+  margin: 50rpx 0 20rpx;
+  width: 50%;
+  height: 2px;
+  background: #ccc;
+  position: relative;
+}
+
+.line .item::after {
+  height: 30rpx;
+  width: 30rpx;
+  border-radius: 50%;
+  background: #4ab848;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  content: '';
+}
+
+.line .last::after {
+  background: #ccc;
+}
+
+.line .last::before {
+  height: 30rpx;
+  width: 30rpx;
+  border-radius: 50%;
+  background: #ccc;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  content: '';
+}
+
+.line-text {
+  display: flex;
+  width: 96%;
+  justify-content: space-between;
+}
+
+.line-text .text {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/*信息列表  */
+
+.info-list {
+  margin-top: 30rpx;
+  font-size: 30rpx;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+}
+
+.row label {
+  width: 30%;
+  margin-right: 20rpx;
+  text-align: right;
+}
+
+.row .form-control {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.row .form-control .input {
+  border: 1px solid #ccc;
+  padding-left: 10rpx;
+  width: 100%;
+  border-radius: 6rpx;
+  padding: 10rpx;
+}
+
+/*联动  */
+
+.citypicker {
+  width: 100%;
+}
+
+.citypickers {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  background-color: red;
+}
+
+.citybody {
+  position: fixed;
+  bottom: 0px;
+  background: #fff;
+  z-index: 99999;
+}
+
+.cityheader {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  z-index: 999999999;
+  background: #fff;
+}
+
+.city-cancel {
+  float: left;
+  margin: 0 30rpx;
+  color: #818181;
+}
+
+.city-true {
+  float: right;
+  margin: 0 30rpx;
+  color: #2fb42e;
+}
+
+.section .picker {
+  background-color: #fff;
+  border-bottom: 1px #d9d9d9 solid;
+  border-top: 1px #d9d9d9 solid;
+  padding: 20rpx;
+}
+
+.picker {
+  padding: 10rpx;
+}
+
+.placeholder {
+  color: #666;
+  padding: 10rpx;
+}
+
+.placehoder {
+  color: #666;
+  padding: 10rpx;
+}
+
+radio .wx-radio-input {
+  border-radius: 50%;
+  height: 40rpx;
+  width: 40rpx;
+  margin-top: -4rpx;
+}
+
+.why {
+  height: 28rpx;
+  width: 28rpx;
+  vertical-align: middle;
+  margin-left: 6rpx;
+}
+
+.demo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

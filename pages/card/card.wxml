@@ -1,0 +1,76 @@
+<view class='head-warp'>
+  <!--头像  -->
+  <image wx:if="{{photoPath}}" bindtap='changeHead'  mode='aspectFill' class='head' src='{{photoPath}}'></image>
+  <image wx:elif="{{data}}" bindtap='changeHead'  class='head' src='../image/add_studenphone@3x.png'></image>
+  <image wx:else bindtap='changeHead2'  class='head' src='../image/add_studenphone@3x.png'></image>
+  <!--姓名  -->
+  <view wx:if="{{data.name}}" class='name'>{{data.name}}
+    <text wx:if="{{data.schoolName}}" class='schoolName'>{{data.schoolName}}</text>
+  </view>
+  <view wx:else class='name'>暂无学生信息</view>
+  <view class='select' bindtap='selectStu'>点击选择学生</view>
+</view>
+<!--卡  -->
+<view wx:if="{{data}}">
+  <!--1  -->
+  <view class='card-item' bindtap='setCard' data-bind="{{data.firstIsBind}}" data-photo="{{data.firstPhoto}}" data-name="{{data.firstName}}" data-card="{{data.firstCardNo}}" data-userid="{{data.userId}}" data-stu="{{data.name}}" data-id='1'>
+    <image wx:if="{{data.firstPhoto}}" mode='aspectFill' class='head' src='{{data.firstPhoto}}'></image>
+    <image wx:else class='head' src='../image/add_pickupphone2@3x.png'></image>
+    <view class='info'>
+      <view wx:if="{{data.firstName}}" class='name'>接送人：{{data.firstName}}</view>
+      <view wx:else class='name'>接送人：
+        <text class='noset'>未设置</text>
+      </view>
+      <view wx:if="{{data.firstCardNo}}" class='num'>卡号：{{data.firstCardNo}}</view>
+      <view wx:else class='num'>卡号：
+        <text class='noset'>未设置</text>
+      </view>
+    </view>
+  </view>
+  <!--2  -->
+  <view class='card-item' bindtap='setCard' data-bind="{{data.secondIsBind}}" data-photo="{{data.secondPhoto}}" data-name="{{data.secondName}}" data-card="{{data.secondCardNo}}" data-userid="{{data.userId}}" data-stu="{{data.name}}" data-id='2'>
+    <image wx:if="{{data.secondPhoto}}" mode='aspectFill' class='head' src='{{data.secondPhoto}}'></image>
+    <image wx:else class='head' src='../image/add_pickupphone2@3x.png'></image>
+    <view class='info'>
+      <view wx:if="{{data.secondName}}" class='name'>接送人：{{data.secondName}}</view>
+      <view wx:else class='name'>接送人：
+        <text class='noset'>未设置</text>
+      </view>
+      <view wx:if="{{data.secondCardNo}}" class='num'>卡号：{{data.secondCardNo}}</view>
+      <view wx:else class='num'>卡号：
+        <text class='noset'>未设置</text>
+      </view>
+    </view>
+  </view>
+  <!--3  -->
+  <view class='card-item' bindtap='setCard' data-bind="{{data.thirdIsBind}}" data-photo="{{data.thirdPhoto}}" data-name="{{data.thirdName}}" data-card='{{data.thirdCardNo}}' data-userid="{{data.userId}}" data-stu="{{data.name}}" data-id='3'>
+    <image wx:if="{{data.thirdPhoto}}" mode='aspectFill' class='head' src='{{data.thirdPhoto}}'></image>
+    <image wx:else class='head' src='../image/add_pickupphone2@3x.png'></image>
+    <view class='info'>
+      <view wx:if="{{data.thirdName}}" class='name'>接送人：{{data.thirdName}}</view>
+      <view wx:else class='name'>接送人：
+        <text class='noset'>未设置</text>
+      </view>
+      <view wx:if="{{data.thirdCardNo}}" class='num'>卡号：{{data.thirdCardNo}}</view>
+      <view wx:else class='num'>卡号：
+        <text class='noset'>未设置</text>
+      </view>
+    </view>
+  </view>
+  <!--4  -->
+  <view class='card-item' bindtap='setCard' data-bind="{{data.fourthIsBind}}" data-photo="{{data.fourthPhoto}}" data-name="{{data.fourthName}}" data-card="{{data.fourthCardNo}}" data-userid="{{data.userId}}" data-stu="{{data.name}}" data-id='4'>
+    <image wx:if="{{data.fourthPhoto}}" mode='aspectFill' class='head' src='{{data.fourthPhoto}}'></image>
+    <image wx:else class='head' src='../image/add_pickupphone2@3x.png'></image>
+    <view class='info'>
+      <view wx:if="{{data.fourthName}}" class='name'>接送人：{{data.fourthName}}</view>
+      <view wx:else class='name'>接送人：
+        <text class='noset'>未设置</text>
+      </view>
+      <view wx:if="{{data.fourthCardNo}}" class='num'>卡号：{{data.fourthCardNo}}</view>
+      <view wx:else class='num'>卡号：
+        <text class='noset'>未设置</text>
+      </view>
+    </view>
+  </view>
+
+</view>

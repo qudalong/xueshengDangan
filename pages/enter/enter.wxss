@@ -1,0 +1,46 @@
+@import "../base1/base1.wxss"; 
+page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.out-wrap {
+  width: 90%;
+}
+
+.enter {
+  margin-top: 30%;
+  border: 1px solid #ccc;
+  padding:15rpx 20rpx;
+  text-align: center;
+  border-radius: 8rpx;
+}
+
+.btn {
+  background: #08bb06;
+  color: #fff;
+  padding: 20rpx;
+  text-align: center;
+  border-radius: 8rpx;
+  margin-top: 50rpx;
+}
+
+.text-wrap {
+  margin-top: 100rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+
+.text-wrap .item {
+  display: flex;
+  margin-bottom: 10rpx;
+}
+
+.text-wrap text {
+  margin-right: 10rpx;
+}
+.nav-out{
+  margin-top: 160rpx;
+}

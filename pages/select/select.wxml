@@ -1,0 +1,42 @@
+<view class='wrap'>
+  <!--信息列表  -->
+  <view class='info-list'>
+    <view class='row'>
+      <label>学生姓名</label>
+      <view class='form-control'>
+        <input maxlength='12' bindinput='inputName' class='input' value='' type='text' placeholder='请输入'></input>
+      </view>
+    </view>
+    <view class='row'>
+      <label>学生身份证号</label>
+      <view class='form-control'>
+        <input maxlength='18' bindinput='inputCard' class='input' type='text' placeholder='请输入'></input>
+      </view>
+    </view>
+    <view class='row mb2'>
+      <label>第一监护人手机号</label>
+      <view class='form-control'>
+        <input bindinput='inputTel' class='input' type='number' value='' maxlength='11' placeholder='请输入'></input>
+      </view>
+    </view>
+    <view class='row'>
+      <label></label>
+      <view class='form-control' style='color:#ccc;'>身份证与手机号任选一个即可</view>
+    </view>
+    <!--下一步  -->
+    <view bindtap='bindSelect' hover-class='hover' class='btn-init btn-primary select-btn'>搜索</view>
+  </view>
+</view>
+<!--查询结果  -->
+<view class='result'>
+  <block wx:for="{{dataList}}" wx:key="unique">
+    <view bindtap='details' class='item' data-name="{{item.name}}" data-phone="{{item.phone}}" data-cardid="{{item.cardid}}" data-isopen="{{item.isOpen}}" data-usersid="{{item.usersid}}">
+      <view>
+        <text class='name'>{{item.name}}</text>
+        <text class='garden'>{{item.schoolName}}</text>
+        <view wx:if="{{item.entranceTime&&item.entranceTime!='null'}}" class='addTime'>{{item.entranceTime}}</view>
+      </view>
+      <image class='icon_right' src='../image/icon_right.png'></image>
+    </view>
+  </block>
+</view>

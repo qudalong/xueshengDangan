@@ -1,0 +1,360 @@
+<view wx:if="{{jump}}" class='cover-bg'></view>
+<!--弹窗  -->
+<view wx:if="{{attentionGZH==0}}" class='cover'></view>
+<view wx:if="{{attentionGZH==0}}" class='showModel'>
+  <view class='outter'>
+  <image bindtap='close' class='close' src='../image/icon_closed.png'></image>
+    <view class='title'>
+      <image class='code' src='../image/tongyiyuan_icon_parents@3x.png'></image>
+      <view class='flex'>
+        <view class='gzh'>关注"童忆助手"公众号</view>
+        <view class='mark'>可接收校园通知、作业、食谱微信提醒</view>
+      </view>
+    </view>
+    <view class='step-wrap'>
+      <view class='title'>如何关注？</view>
+      <view class='step'>
+        <view>1.</view>
+        <view>进入微信【搜索】页面，选择【公众号】输入公众号名称童忆助手，点击【搜索】按钮。在列表中找到童忆助手并进入</view>
+      </view>
+      <view class='step'>
+        <view>2.</view>
+        <view>在童忆助手公众号资料介绍页，点击【关注】进入公众号。</view>
+      </view>
+      <view class='step'>
+        <view> 3.</view>
+        <view>在童忆助手公众号首页，找到底部【服务中心】点击展开，选择【账号绑定】进入账号绑定页面，输入手机号及验证码即可绑定。注：手机号必须与学生档案中监护人手机号一致</view>
+      </view>
+      <view class='step'>
+        <view>4.</view>
+        <view>关注公众号并完成账号绑定后，重新打开小程序即可。</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--填写档案信息  -->
+<view class='cover-wrap'>
+  <!--头部信息  -->
+  <image class='bg' src='../image/bg@3x.png'></image>
+  <view class='garten-box'>
+    <view wx:if="{{schoolName}}" class='garten-name'>{{schoolName}}</view>
+    <!-- <view wx:else class='garten-name'>小太阳幼儿园</view> -->
+    <view class='welcome'>--欢迎您</view>
+  </view>
+  <!--头像信息  -->
+  <view class='top-wrap'>
+    <view class='head-wrap'>
+      <open-data class='head' type="userAvatarUrl"></open-data>
+      <open-data class='name' type="userNickName" lang="zh_CN"></open-data>
+    </view>
+    <view class='demo' bindtap='demo'>
+      <text>档案示例</text>
+      <image class='why' src='../image/help_btn@3x.png'></image>
+    </view>
+  </view>
+</view>
+<!-- 小导航 -->
+<view class='wrap'>
+  <view class='nav-wrap'>
+    <view class='item' bindtap='selectRoll'>
+      <text>查询档案</text>
+      <image class='nav-icon' src='../image/archives_icon@3x.png'></image>
+    </view>
+    <view class='item' bindtap='bindCard'>
+      <text>接送卡绑定</text>
+      <image class='nav-icon' src='../image/binding_icon@3x.png'></image>
+    </view>
+  </view>
+  <!--步骤  -->
+  <view class='line'>
+    <view class='item'></view>
+    <view class='item last'></view>
+  </view>
+  <view class='line-text'>
+    <view class='text'>学生档案</view>
+    <view class='text'>联系人信息</view>
+    <view class='text'>完成</view>
+  </view>
+  <!--信息列表  -->
+  <view class='info-list'>
+    <view class='row'>
+      <label>姓名</label>
+      <view class='form-control'>
+        <input bindinput='inputName' maxlength='12' class='input' type='text' placeholder='输入学生姓名'></input>
+      </view>
+    </view>
+    <view class='row'>
+      <label>班级</label>
+      <view class='form-control'>
+        <view wx:if="{{eduUnitName&&eduUnitName!='null'&&eduUnitName!='undefined'}}" class='input'>{{eduUnitName}}</view>
+        <picker wx:else class='input' bindchange="bindPickerChange" value="{{index}}" range="{{Class}}">
+          <view wx:if="{{!Class[index]}}" class='placeholder'>选择班级</view>
+          <view wx:else class="picker">
+            {{Class[index]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>性别</label>
+      <view class='form-control'>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio" wx:for="{{sex}}" wx:key="unique">
+            <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class='row'>
+      <label>出生日期</label>
+      <view class='form-control'>
+        <picker class='input' mode="date" value="{{date}}" end="{{today}}" bindchange="bindDateChange">
+          <view wx:if="{{date}}" class="picker">{{date}}</view>
+          <view wx:else class='placehoder'>选择出生日期</view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>身份证件类型</label>
+      <view class='form-control'>
+        <input style='border:0' class='input' type='text' value='身份证' disabled></input>
+      </view>
+    </view>
+    <view class='row'>
+      <label>身份证件号码</label>
+      <view class='form-control'>
+        <input bindinput='card' class='input' maxlength='18' type='text' placeholder='输入证件号'></input>
+      </view>
+    </view>
+    <view class='row'>
+      <label>血型</label>
+      <view class='form-control'>
+        <picker class='input' bindchange="blood" value="{{index}}" range="{{blood}}">
+          <view wx:if="{{!blood[xx]}}" class='placeholder'>请选择</view>
+          <view wx:else class="picker">
+            {{blood[xx]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>国籍/地区</label>
+      <view class='form-control'>
+        <input class='input' type='text' value='中国' disabled></input>
+      </view>
+    </view>
+    <view class='row'>
+      <label>民族</label>
+      <view class='form-control'>
+        <picker class='input' bindchange="ethnic" value="{{index}}" range="{{ethnic}}">
+          <view wx:if="{{!ethnic[mz]}}" class='placeholder'>请选择</view>
+          <view wx:else class="picker">
+            {{ethnic[mz]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>港澳台侨外</label>
+      <view class='form-control'>
+        <picker class='input' bindchange="gangao" value="{{index}}" range="{{gangao}}">
+          <view wx:if="{{!gangao[ga]}}" class='placeholder'>请选择</view>
+          <view wx:else class="picker">
+            {{gangao[ga]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>出生所在地</label>
+      <view class='form-control'>
+        <!-- <input wx:if="{{adressShow}}" disabled='disabled' class='input' placeholder="请选择" value="{{province}} {{city}} {{county}}" focus="{{focus}}" bindtap="open" />
+        <view wx:else class="input placeholder" bindtap="init" style='padding:18rpx'>请选择</view> -->
+        <picker class="input" style='flex:1' mode="region" bindchange="bindRegionChange3" value="{{region3}}">
+          <view class='input' style='border:0' wx:if='{{chushengdi}}'>{{chushengdi}}</view>
+          <view wx:else class=" placeholder">请选择</view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>籍贯</label>
+      <view class='form-control'>
+        <!-- <input maxlength='12' bindinput='inputGj' class='input' type='text' placeholder='请输入(例：河南省-郑州市)'></input> -->
+        <picker class="input" style='flex:1' mode="region" bindchange="bindRegionChange" value="{{region}}">
+          <view class='input' style='border:0' wx:if='{{jiguan}}'>
+            {{jiguan}}
+          </view>
+          <view wx:else class=" placeholder">请选择</view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>户口性质</label>
+      <view class='form-control'>
+        <radio-group class="radio-group" bindchange="hk">
+          <label class="radio" wx:for="{{hk}}" wx:key="unique">
+            <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view wx:if="{{fnyShow}}" class='row'>
+      <label>非农业户口类型</label>
+      <view class='form-control'>
+        <picker class='input' bindchange="registered" value="{{index}}" range="{{registered}}">
+          <view wx:if="{{!registered[hkxz]}}" class='placeholder'>请选择</view>
+          <view wx:else class="picker">
+            {{registered[hkxz]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>户口所在地</label>
+      <view class='form-control'>
+        <!-- <input bindinput='hkAdress' maxlength='12' class='input' type='text' placeholder='请输入'></input> -->
+        <picker class="input" style='flex:1' mode="region" bindchange="bindRegionChange2" value="{{region2}}">
+          <view class='input' style='border:0' wx:if='{{hukou}}'>{{hukou}}</view>
+          <view wx:else class=" placeholder">请选择</view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>现住址</label>
+      <view class='form-control'>
+        <input bindinput='adress' class='input' type='text' maxlength='20' placeholder='请输入'></input>
+      </view>
+    </view>
+    <view class='row'>
+      <label>入园日期</label>
+      <view class='form-control'>
+        <picker class='input' mode="date" value="{{date}}" bindchange="enter">
+          <view wx:if="{{enter}}" class="picker">{{enter}}</view>
+          <view wx:else class='placehoder'>选择入园日期</view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>就读方式</label>
+      <view class='form-control'>
+        <radio-group class="radio-group" bindchange="jd">
+          <label class="radio" wx:for="{{jd}}" wx:key="unique">
+            <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class='row'>
+      <label>是否独生子女</label>
+      <view class='form-control'>
+        <radio-group class="radio-group" bindchange="ds">
+          <label class="radio" wx:for="{{ds}}" wx:key="unique">
+            <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class='row'>
+      <label>是否留守儿童</label>
+      <view class='form-control'>
+        <picker class='input' bindchange="liusou" value="{{index}}" range="{{liusou}}">
+          <view wx:if="{{!liusou[ls]}}" class='placeholder'>请选择</view>
+          <view wx:else class="picker">
+            {{liusou[ls]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>是否进程务工人员子女</label>
+      <view class='form-control'>
+        <radio-group class="radio-group" bindchange="wg">
+          <label class="radio" wx:for="{{wg}}" wx:key="unique">
+            <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class='row'>
+      <label>健康状况</label>
+      <view class='form-control'>
+        <picker class='input' bindchange="health" value="{{index}}" range="{{health}}">
+          <view wx:if="{{!health[jk]}}" class='placeholder'>请选择</view>
+          <view wx:else class="picker">
+            {{health[jk]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>是否残疾幼儿</label>
+      <view class='form-control'>
+        <radio-group class="radio-group" bindchange="cj">
+          <label class="radio" wx:for="{{cj}}" wx:key="unique">
+            <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view wx:if="{{cjShow}}" class='row'>
+      <label>残疾幼儿类别</label>
+      <view class='form-control'>
+        <picker class='input' bindchange="disabled" value="{{index}}" range="{{disabled}}">
+          <view wx:if="{{!disabled[cjlb]}}" class='placeholder'>请选择</view>
+          <view wx:else class="picker">
+            {{disabled[cjlb]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class='row'>
+      <label>是否孤儿</label>
+      <view class='form-control'>
+        <radio-group class="radio-group" bindchange="ge">
+          <label class="radio" wx:for="{{ge}}" wx:key="unique">
+            <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class='row'>
+      <label>监护人姓名</label>
+      <view class='form-control'>
+        <input bindinput='jhName' maxlength='12' class='input' type='text' placeholder='输入监护人姓名'></input>
+      </view>
+    </view>
+    <view class='row'>
+      <label>证件类型</label>
+      <view class='form-control'>
+        <input style='border:0' class='input' type='text' value='身份证' disabled></input>
+      </view>
+    </view>
+    <view class='row'>
+      <label>证件号码</label>
+      <view class='form-control'>
+        <input bindinput='jkCard' maxlength='18' class='input' type='text' placeholder='输入证件号'></input>
+      </view>
+    </view>
+    <!--下一步  -->
+    <view wx:if="{{clickStatus}}" bindtap='next' hover-class='hover' class='btn-init btn-primary'>下一步</view>
+    <view wx:else hover-class='hover' class='btn-init btn-primary'>下一步</view>
+  </view>
+</view>
+<!--地市联动  -->
+<view wx:if="{{condition}}" class="citypicker">
+  <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindChange" class="citybody">
+    <view class="cityheader">
+      <view bindtap="open" class="city-cancel">取消</view>
+      <view bindtap="open" class="city-true">确定</view>
+    </view>
+    <picker-view-column>
+      <view wx:for="{{provinces}}" wx:key="item" style="line-height: 50px;padding-left:10px;text-align:center">{{item}}</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{citys}}" wx:key="item" style="line-height: 50px;padding-left:10px;text-align:center">{{item}}</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{countys}}" wx:key="item" style="line-height: 50px;padding-left:10px;text-align:center">{{item}}</view>
+    </picker-view-column>
+  </picker-view>
+</view>
