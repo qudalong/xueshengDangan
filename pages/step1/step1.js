@@ -129,11 +129,7 @@ Page({
     // options 中的 scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
     var scene = decodeURIComponent(options.scene);
     if (scene && scene != 'undefined') {
-      //通过扫描
-      console.log('scene=')
-      console.log('scene=' + scene)
       var a = scene.split("&");
-      // console.log(a)
       var schoolId = scene.split("&")[0];
       var eduUnitId = scene.split("&")[1];
       that.setData({
@@ -141,14 +137,12 @@ Page({
         eduUnitId: eduUnitId
       });
       wx.setStorageSync('schoolId', schoolId);
-
     } else {
       //通过分享
       var schoolId = options.schoolId ? options.schoolId : '0';
       var eduUnitId = options.eduUnitId ? options.eduUnitId : '';
       var eduUnitName = options.eduUnitName ? options.eduUnitName : '';
       var schoolName = options.schoolName ? options.schoolName : '';
-      console.log('noscene=')
       that.setData({
         schoolName: decodeURIComponent(schoolName),
         schoolId: schoolId,
@@ -156,6 +150,7 @@ Page({
         eduUnitId: eduUnitId
       });
       wx.setStorageSync('schoolId', schoolId);
+      console.log('-----------------------')
       console.log('schoolId=' + schoolId)
       console.log('学校名称=' + schoolName)
       console.log('班级名称=' + eduUnitName)
@@ -169,7 +164,6 @@ Page({
     that.setData({
       attentionGZH: attentionGZH
     });
-    console.log('关注公众号=' + attentionGZH)
 
     var eduUnitId = that.data.eduUnitId && (that.data.eduUnitId != 'null') ? that.data.eduUnitId : ''
     wx.request({
@@ -184,10 +178,8 @@ Page({
       },
       success: function(res) {
         wx.hideLoading();
-        console.log(res.data)
         if (res.data.rtnCode == 10000) {
           var data = res.data.rtnData[0];
-          console.log('isopen=' + data.isOpen)
           // 关系下个页面要用
           var rleationSelect = [];
           for (var i in data.rleationSelect) {
@@ -806,7 +798,6 @@ Page({
 
   // 一下是联动
   bindChange: function(e) {
-    console.log(99999999999)
     var val = e.detail.value
     var t = this.data.values;
     var cityData = this.data.cityData;

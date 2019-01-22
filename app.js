@@ -22,7 +22,6 @@ App({
               'content-type': 'application/x-www-form-urlencoded'
             },
             success: function (res) {
-              console.log(res.data)
               if (res.data.rtnCode == 10000) {
                 //本地存储openid
                 wx.setStorageSync('openid', res.data.rtnData[0].openid);
@@ -64,7 +63,7 @@ App({
   globalData: {
     userInfo: null,
     // url: 'http://120.194.28.114:10005/lbt-xcx-server/'//李强
-    // url: 'https://xcx.lebeitong.com/test/'
-    url: 'https://xcx.lebeitong.com/'
+    url: 'https://xcx.lebeitong.com/test/'
+    // url: 'https://xcx.lebeitong.com/'
   }
 })

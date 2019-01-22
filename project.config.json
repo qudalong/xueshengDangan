@@ -8,12 +8,14 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false,
+		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.1.3",
+	"libVersion": "2.5.1",
 	"appid": "wx0860226219e93075",
-	"projectname": "dangdan",
+	"projectname": "xueshengdanan",
 	"isGameTourist": false,
 	"condition": {
 		"search": {

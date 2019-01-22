@@ -1,5 +1,5 @@
 <view class='out-wrap'>
-  <input class='enter' bindinput='enter' maxlength='6' type='number' placeholder='输入园所码'></input>
+  <input class='enter' bindinput='enter' maxlength='11' type='number' placeholder='输入园所码或班主任手机号'></input>
   <view class='btn' bindtap='startEnterRoll'>开始录档案</view>
   <view class='text-wrap'>
     <view class='item'>

@@ -17,8 +17,6 @@ Page({
     var a = that.data;
     var schoolId = options.schoolId
     var scene = decodeURIComponent(options.scene);
-    console.log('scene========' + scene)
-    //如果扫码或分享
     if ((scene && scene != 'undefined') || schoolId){
       wx.navigateTo({
         url: '../step1/step1',
@@ -30,37 +28,42 @@ Page({
   startEnterRoll: function() {
     var that = this;
     var a = that.data;
-    if (!a.schoolCode) {
+    if (!a.schoolCode || (a.schoolCode.length !== 6 && a.schoolCode.length !== 11)) {
       wx.showToast({
-        title: '请输入园所码',
+        title: '请输入正确的园所码或手机号',
         icon: 'none'
       });
       return;
-    } else if (a.schoolCode.length<6) {
+    } else if (a.schoolCode.length == 11 && !(/^1(3|4|5|7|8)\d{9}$/.test(a.schoolCode))) {
       wx.showToast({
-        title: '园所码格式不正确',
+        title: '请输入正确手机号',
         icon: 'none'
       });
       return;
     }
+    var _url='';
+    var _data = {};
+    var txt='';
+    a.schoolCode.length == 6 ? _url = 'interface/schoolStatus/getSchoolInfoBySchoolCode.do' : _url = 'interface/schoolStatus/getEduunitInfoByMasterPhone.do';
+    a.schoolCode.length == 6 ? _data = { schoolCode: a.schoolCode } : _data = { phone: a.schoolCode };
+    a.schoolCode.length == 6 ? txt = '园所码不存在' : txt = '未查找到该手机号';
     wx.request({
-      url: url + 'interface/schoolStatus/getSchoolInfoBySchoolCode.do',
-      data: {
-        schoolCode: a.schoolCode
-      },
+      url: url + _url,
+      data: _data,
       method: 'GET',
       header: {
         token: wx.getStorageSync('token') // 默认值
       },
       success: function (res) {
-        console.log(res.data)
         if (res.data.rtnCode == 10000) {
+          var schoolId;
+          a.schoolCode.length == 6 ? schoolId = res.data.rtnData[0] : schoolId = res.data.rtnData[0].schoolId;
           wx.navigateTo({
-            url: '../step1/step1?schoolId=' + res.data.rtnData[0]
+            url: '../step1/step1?schoolId=' + schoolId
           })
         } else{
           wx.showToast({
-            title: '园所码不存在',
+            title: txt,
             icon: 'none'
           });
         }
