@@ -22,8 +22,6 @@ Page({
         url: '../step1/step1',
       });
     }
-
-
   },
   startEnterRoll: function() {
     var that = this;
