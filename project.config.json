@@ -13,7 +13,7 @@
 		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.5.1",
+	"libVersion": "2.5.2",
 	"appid": "wx0860226219e93075",
 	"projectname": "xueshengdanan",
 	"isGameTourist": false,

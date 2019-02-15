@@ -1,30 +1,33 @@
 <!--弹窗  -->
-<view wx:if="{{attentionGZH==0}}" class='cover'></view>
-<view wx:if="{{attentionGZH==0}}" class='showModel'>
-  <view class='title'>
-    <image class='code' src='../image/tongyiyuan_icon_parents@3x.png'></image>
-    <view class='flex'>
-      <view class='gzh'>关注"童忆助手"公众号</view>
-      <view class='mark'>可接收校园通知、作业、食谱微信提醒</view>
+<view wx:if="{{attentionGZH}}" class='cover'></view>
+<view wx:if="{{attentionGZH}}" class='showModel'>
+  <view class='outter'>
+  <image bindtap='close' class='close' src='../image/icon_closed.png'></image>
+    <view class='title'>
+      <image class='code' src='../image/tongyiyuan_icon_parents@3x.png'></image>
+      <view class='flex'>
+        <view class='gzh'>关注"童忆助手"公众号</view>
+        <view class='mark'>可接收校园通知、作业、食谱微信提醒</view>
+      </view>
     </view>
-  </view>
-  <view class='step-wrap'>
-    <view class='title'>如何关注？</view>
-    <view class='step'>
-      <view>1.</view>
-      <view>进入微信【搜索】页面，选择【公众号】输入公众号名称童忆助手，点击【搜索】按钮。在列表中找到童忆助手并进入</view>
-    </view>
-    <view class='step'>
-      <view>2.</view>
-      <view>在童忆助手公众号资料介绍页，点击【关注】进入公众号。</view>
-    </view>
-    <view class='step'>
-      <view> 3.</view>
-      <view>在童忆助手公众号首页，找到底部【服务中心】点击展开，选择【账号绑定】进入账号绑定页面，输入手机号及验证码即可绑定。注：手机号必须与学生档案中监护人手机号一致</view>
-    </view>
-    <view class='step'>
-      <view>4.</view>
-      <view>关注公众号并完成账号绑定后，重新打开小程序即可。</view>
+    <view class='step-wrap'>
+      <view class='title'>如何关注？</view>
+      <view class='step'>
+        <view>1.</view>
+        <view>进入微信【搜索】页面，选择【公众号】输入公众号名称童忆助手，点击【搜索】按钮。在列表中找到童忆助手并进入</view>
+      </view>
+      <view class='step'>
+        <view>2.</view>
+        <view>在童忆助手公众号资料介绍页，点击【关注】进入公众号。</view>
+      </view>
+      <view class='step'>
+        <view> 3.</view>
+        <view>在童忆助手公众号首页，找到底部【服务中心】点击展开，选择【账号绑定】进入账号绑定页面，输入手机号及验证码即可绑定。注：手机号必须与学生档案中监护人手机号一致</view>
+      </view>
+      <view class='step'>
+        <view>4.</view>
+        <view>关注公众号并完成账号绑定后，重新打开小程序即可。</view>
+      </view>
     </view>
   </view>
 </view>
@@ -75,11 +78,17 @@
         <view class='form-control'>
           <view wx:if="{{eduUnitName&&eduUnitName!='null'&&eduUnitName!='undefined'}}" class='input'>{{eduUnitName}}</view>
           <picker wx:else class='input' bindchange="bindPickerChange" value="{{index}}" range="{{Class}}">
-            <view wx:if="{{!Class[index]}}" class='placeholder'>选择班级</view>
-            <view wx:else class="picker">
-              {{Class[index]}}
-            </view>
-
+            <block wx:if="{{Class.length>1}}">
+              <view wx:if="{{!Class[index]}}" class='placeholder'>选择班级</view>
+              <view wx:else class="picker">
+                {{Class[index]}}
+              </view>
+            </block>
+            <block wx:if="{{Class.length==1}}">
+              <view class="picker">
+                {{Class[0]}}
+              </view>
+            </block>
           </picker>
         </view>
       </view>
@@ -138,6 +147,6 @@
       </view>
     </view>
     <button wx:if='{{clickStatus}}' formType="submit" hover-class='hover' class='btn-init btn-primary'>下一步</button>
-    <button wx:else  hover-class='hover' class='btn-init btn-primary'>下一步</button>
+    <button wx:else hover-class='hover' class='btn-init btn-primary'>下一步</button>
   </form>
 </view>

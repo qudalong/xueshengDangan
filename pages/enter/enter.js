@@ -7,7 +7,7 @@ Page({
   data: {
     region: []
   },
-  bindRegionChange: function (e) {
+  bindRegionChange: function(e) {
     this.setData({
       region: e.detail.value
     })
@@ -17,7 +17,7 @@ Page({
     var a = that.data;
     var schoolId = options.schoolId
     var scene = decodeURIComponent(options.scene);
-    if ((scene && scene != 'undefined') || schoolId){
+    if ((scene && scene != 'undefined') || schoolId) {
       wx.navigateTo({
         url: '../step1/step1',
       });
@@ -39,11 +39,15 @@ Page({
       });
       return;
     }
-    var _url='';
+    var _url = '';
     var _data = {};
-    var txt='';
+    var txt = '';
     a.schoolCode.length == 6 ? _url = 'interface/schoolStatus/getSchoolInfoBySchoolCode.do' : _url = 'interface/schoolStatus/getEduunitInfoByMasterPhone.do';
-    a.schoolCode.length == 6 ? _data = { schoolCode: a.schoolCode } : _data = { phone: a.schoolCode };
+    a.schoolCode.length == 6 ? _data = {
+      schoolCode: a.schoolCode
+    } : _data = {
+      phone: a.schoolCode
+    };
     a.schoolCode.length == 6 ? txt = '园所码不存在' : txt = '未查找到该手机号';
     wx.request({
       url: url + _url,
@@ -52,14 +56,44 @@ Page({
       header: {
         token: wx.getStorageSync('token') // 默认值
       },
-      success: function (res) {
+      success: function(res) {
         if (res.data.rtnCode == 10000) {
-          var schoolId;
-          a.schoolCode.length == 6 ? schoolId = res.data.rtnData[0] : schoolId = res.data.rtnData[0].schoolId;
-          wx.navigateTo({
-            url: '../step1/step1?schoolId=' + schoolId
-          })
-        } else{
+          var dataInfo = res.data.rtnData;
+          if (a.schoolCode.length == 11&&dataInfo) {
+            //选择园所
+            var itemList = [];
+            for (var i in dataInfo) {
+              var schoolName = dataInfo[i].schoolName;
+              itemList.push(schoolName);
+            }
+            var tabList = Array.from(new Set(itemList));
+            wx.showActionSheet({
+              itemList: tabList,
+              success: function(res) {
+                var tapIndex = res.tapIndex;
+                var schoolName = tabList[tapIndex];
+                for (var i in dataInfo) {
+                  if (dataInfo[i].schoolName == schoolName){
+                    var schoolId = dataInfo[i].schoolId;
+                  }
+                }
+                wx.navigateTo({
+                  url: '../step1/step1?schoolId=' + schoolId + "&phone=" + a.schoolCode
+                })
+              }
+            })
+          }else{
+            wx.navigateTo({
+              url: '../step1/step1?schoolId=' + res.data.rtnData[0]
+            })
+          }
+          // var schoolId;
+          // a.schoolCode.length == 6 ? schoolId = res.data.rtnData[0] : schoolId = res.data.rtnData[0].schoolId;
+          // console.log('schoolId=====' + schoolId)
+          // // wx.navigateTo({
+          // //   url: '../step1/step1?schoolId=' + schoolId + "&phone=" + a.schoolCode
+          // // })
+        } else {
           wx.showToast({
             title: txt,
             icon: 'none'
@@ -75,12 +109,12 @@ Page({
     })
   },
 
-  selectRoll: function () {
+  selectRoll: function() {
     wx.navigateTo({
       url: '../select/select',
     });
   },
-  bindCard: function () {
+  bindCard: function() {
     wx.navigateTo({
       url: '../card/card?init=' + 1,
     });

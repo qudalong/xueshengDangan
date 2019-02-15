@@ -111,19 +111,20 @@ Page({
                 filePath: tempFilePaths[0],
                 name: 'file',
                 header: {
-                  'content-type': 'multipart/form-data' 
+                  'content-type': 'multipart/form-data',
+                  token: wx.getStorageSync('token')
                 },
                 formData: {
                   'usersid': that.data.userid
                 },
                 success: function(res) {
-                  console.log('上传图片成功')
-                  console.log(res)
                   var data = res.data;
-                  var headImg = JSON.parse(data).rtnData[0];
-                  that.setData({
-                    photoPath: headImg
-                  });
+                  if (data) {
+                    var headImg = JSON.parse(data).rtnData[0];
+                    that.setData({
+                      photoPath: headImg
+                    });
+                  }
                 }
               });
               wx.showToast({
@@ -133,8 +134,7 @@ Page({
               });
             }
           })
-        } else if (res.tapIndex == 1) { //相机
-
+        } else if (res.tapIndex == 1) { //相册
           wx.chooseImage({
             count: 1, // 默认9
             sizeType: ['original', 'compressed'],
@@ -146,16 +146,23 @@ Page({
                 url: url + 'interface/parent/user/upLoadFile/uploadheadPhoto.do',
                 filePath: tempFilePaths[0],
                 name: 'file',
+                header: {
+                  'content-type': 'multipart/form-data',
+                  token: wx.getStorageSync('token')
+                },
                 formData: {
                   'usersid': that.data.userid
                 },
                 success: function(res) {
-                  console.log('上传图片成功')
+                  console.log('上传图片成功相册')
                   var data = res.data;
-                  var headImg = JSON.parse(data).rtnData[0];
-                  that.setData({
-                    photoPath: headImg
-                  });
+                  console.log(res)
+                  if (data) {
+                    var headImg = JSON.parse(data).rtnData[0];
+                    that.setData({
+                      photoPath: headImg
+                    });
+                  }
                 }
               });
 

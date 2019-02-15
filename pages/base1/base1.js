@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    clickStatus:true,
+    Class:[],
+    clickStatus: true,
     sexI: 1,
     sex: [{
         name: 1,
@@ -73,12 +74,12 @@ Page({
   next: function(e) {
     var that = this;
     var formId = e.detail.formId;
-    console.log('formId=' + formId)
+    //console.log('formId=' + formId)
     var a = that.data;
     var regCard = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     var regTel = /^[1][3,4,5,7,8][0-9]{9}$/;
     var regCn = /[`~!@#\$%\^\&\*\(\)_\+<>\?:"\{\},\.\\\/;'\[\]]/im;
-    console.log(regCn.test(a.name))
+    //console.log(regCn.test(a.name))
     if (!a.name) {
       wx.showToast({
         title: '请输入学生姓名',
@@ -147,14 +148,23 @@ Page({
       return;
     }
     // 查找班级id
-    var classId = 0;
-    if (a.eduUnitId && a.eduUnitId!='null') {
-      var classId = a.eduUnitId;
-    } else {
-      for (var i in a.eduunits) {
-        if (a.eduunits[i].text == a.Class[a.index]) {
-          classId = a.eduunits[i].value;
-          break;
+    if (a.phone){
+      for (var i in a.byPhoneData) {
+        if (a.byPhoneData[i].eduunitName == a.Class[a.index]) {
+          var classId = a.byPhoneData[i].eduunitId;
+        }
+        //console.log('classId_bytel=' + classId)
+      }
+    }else{
+      var classId = 0;
+      if (a.eduUnitId && a.eduUnitId != 'null') {
+        var classId = a.eduUnitId;
+      } else {
+        for (var i in a.eduunits) {
+          if (a.eduunits[i].text == a.Class[a.index]) {
+            classId = a.eduunits[i].value;
+            break;
+          }
         }
       }
     }
@@ -223,19 +233,18 @@ Page({
       data: dataList,
       method: 'POST',
       header: {
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/x-www-form-urlencoded',
+        token: wx.getStorageSync('token') // 默认值
       },
       success: function(res) {
-        console.log(res.data)
+        //console.log(res.data)
         if (res.data.rtnCode == 10000) {
           var result = res.data.result;
           wx.navigateTo({
             url: '../step3/step3?result=' + result + '&phone=' + a.tel + '&cardId=' + '' + '&name=' + a.name + '&appType=' + a.appType + '&isOpen=' + a.isOpen
           })
-
-
         } else {
-          console.log('查询学生接送卡绑定信息失败');
+          //console.log('查询学生接送卡绑定信息失败');
         }
       }
     });
@@ -248,8 +257,10 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    var phone = options.phone || '' //传过来的手机号查询号码
     that.setData({
-      clickStatus: true
+      clickStatus: true,
+      phone
     });
     //获取七牛上传Token
     wx.request({
@@ -260,7 +271,7 @@ Page({
         token: wx.getStorageSync('token')
       },
       success: function(res) {
-        console.log('uploadToken=' + res.data.rtnData[0].uploadToken);
+        //console.log('uploadToken=' + res.data.rtnData[0].uploadToken);
         if (res.data.rtnCode == 10000) {
           wx.setStorageSync('baseUrl', res.data.rtnData[0].baseUrl);
           wx.setStorageSync('uploadToken', res.data.rtnData[0].uploadToken);
@@ -274,8 +285,8 @@ Page({
     });
 
     //二维码传参
-    var isOpen = options.isOpen;//1开启
-    var appType = options.appType;//园所类别 1童忆园 2乐贝通
+    var isOpen = options.isOpen; //1开启
+    var appType = options.appType; //园所类别 1童忆园 2乐贝通
     var eduUnitId = options.eduUnitId ? options.eduUnitId : '';
     var eduUnitName = options.eduUnitName ? options.eduUnitName : '';
     var schoolId = options.schoolId ? options.schoolId : '';
@@ -283,12 +294,12 @@ Page({
     // var attentionGZH = wx.getStorageSync('bindPublic'); //幼儿园是否关注公众号
     var attentionGZH = 1; //幼儿园是否关注公众号
 
-    console.log('班级名称=' + schoolName)
-    console.log('appType=' + appType)
+    //console.log('班级名称=' + schoolName)
+    //console.log('appType=' + appType)
     //幼儿园是否关注公众号
     that.setData({
-      isOpen: isOpen, 
-      appType: appType, 
+      isOpen: isOpen,
+      appType: appType,
       attentionGZH: attentionGZH
     });
     //幼儿园名字
@@ -309,7 +320,6 @@ Page({
       eduUnitName: decodeURIComponent(eduUnitName)
     });
 
-
     wx.request({
       url: url + 'interface/schoolStatus/getStudentInfoSelect.do',
       data: {
@@ -320,7 +330,7 @@ Page({
         token: wx.getStorageSync('token') // 默认值
       },
       success: function(res) {
-        console.log(res.data)
+        //console.log(res.data)
         if (res.data.rtnCode == 10000) {
           var data = res.data.rtnData[0];
           //关系
@@ -333,19 +343,54 @@ Page({
           });
           wx.setStorageSync('rleationSelect', rleationSelect);
           wx.setStorageSync('allRleationSelect', data.rleationSelect);
-          //班级
-          var Class = [];
-          for (var i in data.eduunits) {
-            Class.push(data.eduunits[i].text)
+          // 如果是手机号查询
+          //console.log('电话=' + phone)
+          if (phone) {
+            wx.request({
+              url: url + 'interface/schoolStatus/getEduunitInfoByMasterPhone.do',
+              data: {
+                phone: phone
+              },
+              method: 'GET',
+              header: {
+                token: wx.getStorageSync('token') // 默认值
+              },
+              success: function (res) {
+                if (res.data.rtnCode == 10000) {
+                  var data = res.data.rtnData;
+                  var Class = [];
+                  for (var i in data) {
+                    //只选取当前园所班级
+                    if (data[i].schoolId == schoolId){
+                      Class.push(data[i].eduunitName)
+                    }
+                  }
+                  that.setData({
+                    Class: Class,
+                    byPhoneData: data
+                  });
+                }
+              }
+            });
+          }else{
+            //班级
+            var Class = [];
+            for (var i in data.eduunits) {
+              Class.push(data.eduunits[i].text)
+            }
+            that.setData({
+              eduunits: data.eduunits, //查找班级id用
+              Class: Class
+            });
           }
-          that.setData({
-            eduunits: data.eduunits, //查找班级id用
-            Class: Class
-          });
         }
       }
     });
-
+  },
+  close(){
+    this.setData({
+      attentionGZH:false
+    })
   },
 
   //跳转
@@ -395,9 +440,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-     wx.navigateBack({
-       delta:2
-     });
+    wx.navigateBack({
+      delta: 2
+    });
   },
 
   /**

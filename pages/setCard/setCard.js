@@ -294,7 +294,7 @@ Page({
               });
             }
           })
-        } else if (res.tapIndex == 1) { //相机
+        } else if (res.tapIndex == 1) { //相册
           wx.chooseImage({
             count: 1, // 默认9
             sizeType: ['original', 'compressed'],
@@ -302,6 +302,7 @@ Page({
             success: function(res) {
               var tempFilePaths = res.tempFilePaths;
               var filePath = tempFilePaths[0];
+              console.log('filePath==' + filePath)
 
               //七牛提供的上传方法
               qiniuUploader.upload(filePath, (res) => {

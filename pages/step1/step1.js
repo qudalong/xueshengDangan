@@ -3,11 +3,8 @@ var tcity = require("../../utils/citys.js");
 var url = getApp().globalData.url;
 
 Page({
-
-
-
   data: {
-    region: [],//籍贯
+    region: [], //籍贯
     region2: [], //户口所在地
     region3: [], //出生地
     jump: true, //是否跳转
@@ -111,7 +108,7 @@ Page({
       icon: 'none',
       mask: true
     });
-
+    var phone = options.phone||''//传过来的手机号查询号码
 
     var that = this;
     var a = that.data;
@@ -129,6 +126,7 @@ Page({
     // options 中的 scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
     var scene = decodeURIComponent(options.scene);
     if (scene && scene != 'undefined') {
+      console.log('scene=' + scene)
       var a = scene.split("&");
       var schoolId = scene.split("&")[0];
       var eduUnitId = scene.split("&")[1];
@@ -150,14 +148,7 @@ Page({
         eduUnitId: eduUnitId
       });
       wx.setStorageSync('schoolId', schoolId);
-      console.log('-----------------------')
-      console.log('schoolId=' + schoolId)
-      console.log('学校名称=' + schoolName)
-      console.log('班级名称=' + eduUnitName)
     }
-
-
-
     var attentionGZH = wx.getStorageSync('bindPublic'); //幼儿园是否关注公众号
     // var attentionGZH = 1; //幼儿园是否关注公众号
     //幼儿园是否关注公众号
@@ -206,10 +197,6 @@ Page({
               }
             }
           }
-
-
-
-
           // 血型
           var blood = [];
           for (var i in data.bloodTypeSelect) {
@@ -262,16 +249,18 @@ Page({
             isOpen: isOpen, //是否开启学籍 1开启
             appType: appType //园所类别 1童忆园 2乐贝通
           });
-          console.log('幼儿园是否开启档案=' + isOpen)
-          console.log('幼儿园是否开启档案=' + that.data.isOpen)
-          //解决未开启档案时页面停留跳转  视觉问题
-          that.setData({
-            jump: false
-          });
-          //幼儿园是否开启档案
+          //是否开启学籍 1开启
           if (!that.data.isOpen) {
+            //解决未开启档案时页面停留跳转  视觉问题
+            that.setData({
+              jump: true
+            });
             wx.navigateTo({
-              url: '../base1/base1?eduUnitId=' + eduUnitId + '&eduUnitName=' + that.data.eduUnitName + '&schoolId=' + schoolId + '&schoolName=' + that.data.schoolName + '&attentionGZH=' + attentionGZH + '&appType=' + that.data.appType + '&isOpen=' + that.data.isOpen,
+              url: '../base1/base1?eduUnitId=' + eduUnitId + '&eduUnitName=' + that.data.eduUnitName + '&schoolId=' + schoolId + '&schoolName=' + that.data.schoolName + '&attentionGZH=' + attentionGZH + '&appType=' + that.data.appType + '&isOpen=' + that.data.isOpen + '&phone=' + phone,
+            });
+          }else{
+            that.setData({
+              jump: false
             });
           }
         }
@@ -287,14 +276,12 @@ Page({
         token: wx.getStorageSync('token')
       },
       success: function(res) {
-        console.log('uploadToken=' + res.data.rtnData[0].uploadToken);
         if (res.data.rtnCode == 10000) {
           wx.setStorageSync('baseUrl', res.data.rtnData[0].baseUrl);
           wx.setStorageSync('uploadToken', res.data.rtnData[0].uploadToken);
         } else {}
       }
     });
-
 
     //联动
     tcity.init(that);
@@ -320,19 +307,16 @@ Page({
       'province': cityData[0].name,
       'city': cityData[0].sub[0].name,
       'county': cityData[0].sub[0].sub[0].name
-      // 'province': '',
-      // 'city': '',
-      // 'county': ''
     })
   },
   //关闭公众号提示
-  close:function(){
+  close: function() {
     this.setData({
       attentionGZH: true
     })
   },
   //出生地
-  bindRegionChange3: function (e) {
+  bindRegionChange3: function(e) {
     var that = this;
     var chushengdi = e.detail.value;
     if (chushengdi[0] == '北京市' || chushengdi[0] == '上海市' || chushengdi[0] == '天津市' || chushengdi[0] == '重庆市') {
@@ -344,10 +328,9 @@ Page({
         chushengdi: chushengdi[0] + " " + chushengdi[1] + " " + chushengdi[2]
       })
     }
-
   },
   //籍贯
-  bindRegionChange: function (e) {
+  bindRegionChange: function(e) {
     var that = this;
     var jiguan = e.detail.value;
     if (jiguan[0] == '北京市' || jiguan[0] == '上海市' || jiguan[0] == '天津市' || jiguan[0] == '重庆市') {
@@ -359,10 +342,9 @@ Page({
         jiguan: jiguan[0] + " " + jiguan[1]
       })
     }
-
   },
   //户口所在地
-  bindRegionChange2: function (e) {
+  bindRegionChange2: function(e) {
     var that = this;
     var hukou = e.detail.value;
     if (hukou[0] == '北京市' || hukou[0] == '上海市' || hukou[0] == '天津市' || hukou[0] == '重庆市') {
@@ -396,7 +378,6 @@ Page({
     }
   },
   jd: function(e) {
-    console.log(e.detail.value)
     this.setData({
       jdI: e.detail.value
     });
@@ -620,7 +601,7 @@ Page({
         icon: 'none'
       });
       return;
-    }else if (!a.region2) {
+    } else if (!a.region2) {
       wx.showToast({
         title: '请选择户口类型',
         icon: 'none'
