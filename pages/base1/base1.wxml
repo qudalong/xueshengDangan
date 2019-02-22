@@ -1,6 +1,6 @@
 <!--弹窗  -->
-<view wx:if="{{attentionGZH}}" class='cover'></view>
-<view wx:if="{{attentionGZH}}" class='showModel'>
+<view wx:if="{{attentionGZH}}" class='cover' catchtouchmove='true'></view>
+<view wx:if="{{attentionGZH}}" class='showModel' catchtouchmove='true'>
   <view class='outter'>
   <image bindtap='close' class='close' src='../image/icon_closed.png'></image>
     <view class='title'>

@@ -125,7 +125,7 @@ Page({
                 //查找userid
                 var userid = resuleList[tapIndex].usersid;
                 wx.navigateTo({
-                  url: '../card/card?detail=' + 1 + '&userid=' + userid,
+                  url: '../card/card?detail=' + 1 + '&userid=' + userid
                 })
               },
               fail: function (res) {

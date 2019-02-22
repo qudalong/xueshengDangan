@@ -1,7 +1,7 @@
-<view wx:if="{{jump}}" class='cover-bg'></view>
+<view wx:if="{{jump}}" class='cover-bg' catchtouchmove='true'></view>
 <!--弹窗  -->
-<view wx:if="{{attentionGZH==0}}" class='cover'></view>
-<view wx:if="{{attentionGZH==0}}" class='showModel'>
+<view wx:if="{{attentionGZH==0}}" class='cover' catchtouchmove='true'></view>
+<view wx:if="{{attentionGZH==0}}" class='showModel' catchtouchmove='true'>
   <view class='outter'>
   <image bindtap='close' class='close' src='../image/icon_closed.png'></image>
     <view class='title'>

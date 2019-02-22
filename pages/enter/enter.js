@@ -116,7 +116,7 @@ Page({
   },
   bindCard: function() {
     wx.navigateTo({
-      url: '../card/card?init=' + 1,
+      url: '../card/card?init='+1,
     });
   },
 
