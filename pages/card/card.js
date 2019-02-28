@@ -6,11 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // a:[1,2,3,4]
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 生命周期函数--监听页面加载 1700894 169031
    */
   onLoad: function(options) {
     var that = this;
@@ -19,7 +18,7 @@ Page({
     var detail = options.detail;
     if (userid) {
       that.setData({
-        userid: userid
+        userid
       });
     }
     wx.showLoading({
@@ -27,7 +26,6 @@ Page({
     });
     //初始化时
     if (init) {
-      console.log("init...............................")
       wx.request({
         url: url + 'interface/schoolStatus/selectLastUserBindCardNo.do',
         data: {
@@ -40,7 +38,6 @@ Page({
         },
         success: function(res) {
           wx.hideLoading();
-          console.log(res.data)
           if (res.data.rtnCode == 10000) {
             var data = res.data.rtnData[0];
             var firstName = data.firstName;
@@ -60,36 +57,43 @@ Page({
     }
     //详情时
     if (detail) {
-      console.log("detail.........................................")
-      wx.request({
-        url: url + 'interface/parent/safetycard/selectUserBindCardNo.do',
-        data: {
-          userid: userid
-        },
-        method: 'GET',
-        header: {
-          token: wx.getStorageSync('token') // 默认值
-        },
-        success: function(res) {
-          wx.hideLoading();
-          console.log(res.data)
-          if (res.data.rtnCode == 10000) {
-            var data = res.data.rtnData[0];
-            var firstName = data.firstName;
-            var secondName = data.secondName;
-            var thirdName = data.thirdName;
-            var fourthName = data.fourthName;
-            var parents = [firstName, secondName, thirdName, fourthName];
-            wx.setStorageSync('parents', parents);
-            that.setData({
-              data: data,
-              photoPath: data.photoPath
-            });
-          } else {}
-        }
-      });
+      this.selectUserBindCardNo();
+      setTimeout(()=>{
+        this.selectUserBindCardNo();
+      },600);
     }
   },
+  
+  selectUserBindCardNo(){
+    wx.request({
+      url: url + 'interface/parent/safetycard/selectUserBindCardNo.do',
+      data: {
+        userid: this.data.userid
+      },
+      method: 'GET',
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      success:(res)=> {
+        wx.hideLoading();
+        if (res.data.rtnCode == 10000) {
+          var data = res.data.rtnData[0];
+          var firstName = data.firstName;
+          var secondName = data.secondName;
+          var thirdName = data.thirdName;
+          var fourthName = data.fourthName;
+          var parents = [firstName, secondName, thirdName, fourthName];
+          wx.setStorageSync('parents', parents);
+          this.setData({
+            data: data,
+            photoPath: data.photoPath
+          });
+        } else { }
+      }
+    });
+  },
+
+  
 
   //更改学生图片
   changeHead: function() {
@@ -105,7 +109,6 @@ Page({
             success: function(res) {
               var tempFilePaths = res.tempFilePaths;
               var filePath = tempFilePaths[0];
-              console.log(filePath)
               wx.uploadFile({
                 url: url + 'interface/parent/user/upLoadFile/uploadheadPhoto.do',
                 filePath: tempFilePaths[0],
@@ -154,9 +157,7 @@ Page({
                   'usersid': that.data.userid
                 },
                 success: function(res) {
-                  console.log('上传图片成功相册')
                   var data = res.data;
-                  console.log(res)
                   if (data) {
                     var headImg = JSON.parse(data).rtnData[0];
                     that.setData({

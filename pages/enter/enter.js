@@ -167,5 +167,10 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  toCard(){
+    wx.navigateTo({
+      url: '/pages/card/card?detail=1&userid=1700894',
+    })
   }
 })

@@ -1,10 +1,12 @@
 {
   "pages":[
     "pages/enter/enter",
-    "pages/step1/step1",
-    "pages/base1/base1", 
-    "pages/setCard/setCard",
     "pages/card/card",
+    "pages/base1/base1", 
+    "pages/select/select",
+    "pages/setCard/setCard",
+    "pages/selectStu/selectStu",
+    "pages/step1/step1",
     "pages/step3/step3",
     "pages/detailsRoll/detailsRoll", 
     "pages/details/details", 
@@ -12,11 +14,7 @@
     "pages/studentRoll/studentRoll",
     "pages/demo2/demo2",
     "pages/demo/demo",
-    "pages/selectStu/selectStu",
-    "pages/select/select",
-    "pages/step2/step2",
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/step2/step2"
   ],
   "window":{
     "backgroundTextStyle":"light",
