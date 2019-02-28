@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    var userid = options.userid;
+    var userid = options.userid || 169031;
     var init = options.init;
     var detail = options.detail;
     if (userid) {
@@ -60,7 +60,7 @@ Page({
       this.selectUserBindCardNo();
       setTimeout(()=>{
         this.selectUserBindCardNo();
-      },600);
+      },1000);
     }
   },
   
