@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    var userid = options.userid || 169031;
+    var userid = options.userid||999999999999999;
     var init = options.init;
     var detail = options.detail;
     if (userid) {

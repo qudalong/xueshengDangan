@@ -9,7 +9,15 @@ page {
 .out-wrap {
   width: 90%;
 }
-
+button{
+  line-height: 1.2;
+}
+button::after{
+ border: none;
+}
+.getUserInfo{
+  width: 48% !important;
+}
 .enter {
   margin-top: 30%;
   border: 1px solid #ccc;

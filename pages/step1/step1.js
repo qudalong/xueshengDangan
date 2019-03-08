@@ -130,6 +130,7 @@ Page({
       var a = scene.split("&");
       var schoolId = scene.split("&")[0];
       var eduUnitId = scene.split("&")[1];
+      console.log('eduUnitId=' + eduUnitId)
       that.setData({
         schoolId: schoolId,
         eduUnitId: eduUnitId
@@ -161,7 +162,7 @@ Page({
       url: url + 'interface/schoolStatus/getStudentInfoSelect.do',
       data: {
         schoolId: wx.getStorageSync('schoolId'),
-        eduUnitId: eduUnitId //后来加的
+        eduUnitId: wx.getStorageSync('unionid') //后来加的
       },
       method: 'GET',
       header: {

@@ -15,6 +15,11 @@ Page({
   onLoad: function(options) {
     var that = this;
     var a = that.data;
+    var getUnionidStatus = wx.getStorageSync('getUnionidStatus');
+    console.log('getUnionidStatus=' + getUnionidStatus)
+    if (getUnionidStatus){
+      this.setData({getUnionidStatus});
+    }
     var schoolId = options.schoolId
     var scene = decodeURIComponent(options.scene);
     if ((scene && scene != 'undefined') || schoolId) {
@@ -23,6 +28,48 @@ Page({
       });
     }
   },
+
+  userInfoHandler(e) {
+    const that = this;
+    if (e.detail.userInfo) {
+      this.setData({ getUnionidStatus:true });
+    }
+    wx.getUserInfo({
+      withCredentials: true,
+      success(res) {
+        that.unionidCallBack(res);
+      },
+      fail: function (res) {
+
+      }
+    })
+  },
+  unionidCallBack: function (weiXinUser) {
+    const that = this;
+    wx.request({
+      url: url + 'mobile/decodeUser.do',
+      method: 'POST',
+      data: {
+        encryptedData: weiXinUser.encryptedData,
+        session_key: wx.getStorageSync('session_key'),
+        vi: weiXinUser.iv
+      },
+      header: {
+        token: wx.getStorageSync('token'),
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      success: function (res) {
+        if (res.data.rtnCode == 10000) {
+          wx.setStorageSync('unionid', res.data.rtnData[0].unionId);
+        } else {
+        }
+      },
+      fail: function () {
+        console.log("授权失败，无法登录")
+      }
+    });
+  },
+
   startEnterRoll: function() {
     var that = this;
     var a = that.data;
@@ -131,7 +178,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var getUnionidStatus = wx.getStorageSync('getUnionidStatus');
+    if (getUnionidStatus) {
+      this.setData({ getUnionidStatus });
+    }
   },
 
   /**

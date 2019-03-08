@@ -1,6 +1,8 @@
 <view class='out-wrap'>
   <input class='enter' bindinput='enter' maxlength='11' type='number' placeholder='输入园所码或班主任手机号'></input>
-  <view class='btn' bindtap='startEnterRoll'>开始录档案</view>
+  <view wx:if="{{getUnionidStatus}}" class='btn' bindtap='startEnterRoll'>开始录档案</view>
+  <button wx:if="{{!getUnionidStatus}}" hover-class='hover' class='btn' open-type="getUserInfo" bindgetuserinfo="userInfoHandler">开始录档案
+  </button>
   <view class='text-wrap'>
     <view class='item'>
       <text>1</text>
@@ -13,14 +15,22 @@
   </view>
   <view class='nav-out'>
     <view class='nav-wrap'>
-      <view class='item' bindtap='selectRoll'>
+      <view wx:if="{{getUnionidStatus}}" class='item' bindtap='selectRoll'>
         <text>查询档案</text>
         <image class='nav-icon' src='../image/archives_icon@3x.png'></image>
       </view>
-      <view class='item' bindtap='bindCard'>
+      <button wx:if="{{!getUnionidStatus}}" hover-class='hover' class='item getUserInfo' open-type="getUserInfo" bindgetuserinfo="userInfoHandler">
+        <text>查询档案</text>
+        <image class='nav-icon' src='../image/archives_icon@3x.png'></image>
+      </button>
+      <view wx:if="{{getUnionidStatus}}" class='item' bindtap='bindCard'>
         <text>接送卡绑定</text>
         <image class='nav-icon' src='../image/binding_icon@3x.png'></image>
       </view>
+      <button wx:if="{{!getUnionidStatus}}" hover-class='hover' class='item getUserInfo' open-type="getUserInfo" bindgetuserinfo="userInfoHandler">
+        <text>接送卡绑定</text>
+        <image class='nav-icon' src='../image/binding_icon@3x.png'></image>
+      </button>
     </view>
   </view>
 </view>
