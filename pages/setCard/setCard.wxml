@@ -11,10 +11,10 @@
   <view class='item'>
     <label>接送人</label>
     <view class='select'>
-      <picker class='input selectArea' bindchange="bindPickerChange" value="{{index}}" range="{{Array}}">
-        <view wx:if="{{!name&&!Array[index]||name=='null'}}" class='placeholder'>请选择</view>
-         <view class='picker' wx:elif="{{name&&!Array[index]&&name!='null'}}">{{name}}</view> 
-        <view wx:else class='picker'>{{Array[index]}}</view>
+      <picker class='input selectArea' bindchange="bindPickerChange" value="{{index}}" range="{{_Array}}">
+        <view wx:if="{{!name&&!_Array[index]||name=='null'}}" class='placeholder'>请选择</view>
+         <view class='picker' wx:elif="{{name&&!_Array[index]&&name!='null'}}">{{name}}</view> 
+        <view wx:else class='picker'>{{_Array[index]}}</view>
       </picker>
       <image class='icon_right' src='../image/icon_right.png'></image>
     </view>

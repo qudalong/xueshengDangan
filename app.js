@@ -1,7 +1,7 @@
 //app.js
 App({
   onLaunch: function() {
-    var that=this;
+    var that = this;
     // 登录
     wx.login({
       success: res => {
@@ -29,16 +29,16 @@ App({
                   wx.setStorageSync('unionid', unionid);
                   wx.setStorageSync('getUnionidStatus', true);
                   console.log('微信登录时unionid=' + res.data.rtnData[0].unionid);
-                  
+
                 } else {
                   console.log('微信登录时没有获取unionid');
                   wx.getUserInfo({
                     withCredentials: true,
-                    success(res){
+                    success(res) {
                       that.unionidCallBack(res);
                     },
-                    fail: function (res) {
-                      
+                    fail: function(res) {
+
                     }
                   })
 
@@ -54,7 +54,7 @@ App({
       }
     })
 
-   
+
 
     // 获取用户信息
     wx.getSetting({
@@ -78,9 +78,9 @@ App({
     })
   },
   /**
-  * 解密用户unionid信息回调
-  */
-  unionidCallBack: function (weiXinUser) {
+   * 解密用户unionid信息回调
+   */
+  unionidCallBack: function(weiXinUser) {
     const that = this;
     wx.request({
       url: this.globalData.url + 'mobile/decodeUser.do',
@@ -94,13 +94,12 @@ App({
         token: wx.getStorageSync('token'),
         'content-type': 'application/x-www-form-urlencoded',
       },
-      success: function (res) {
+      success: function(res) {
         if (res.data.rtnCode == 10000) {
           wx.setStorageSync('unionid', res.data.rtnData[0].unionId);
-        } else{
-        }
+        } else {}
       },
-      fail:function(){
+      fail: function() {
         console.log("授权失败，无法登录")
       }
     });
@@ -108,7 +107,7 @@ App({
   globalData: {
     userInfo: null,
     // url: 'http://120.194.28.114:10005/lbt-xcx-server/'//李强
-    // url: 'https://xcx.lebeitong.com/test/'
-    url: 'https://xcx.lebeitong.com/'
+    url: 'https://xcx.lebeitong.com/test/'
+    // url: 'https://xcx.lebeitong.com/'
   }
 })

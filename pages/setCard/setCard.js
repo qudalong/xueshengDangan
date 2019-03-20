@@ -19,41 +19,10 @@ Page({
     var photo = options.photo;
     var name = options.name;
     var card = options.card;
-    var Array = wx.getStorageSync("rleationSelect"); //改装后的关系数组
-    var Array2 = wx.getStorageSync("allRleationSelect"); //全部关系信息
     var parents = wx.getStorageSync("parents"); //已存在的关系
-    //去除已存在的关系
-    if (parents.length) {
-      for (var i in Array) {
-        for (var j in parents) {
-          if (Array[i] == parents[j]) {
-            Array.splice(i, 1);
-          }
-        }
-      }
-      //添加当前关系
-      if (name && name != 'null') {
-        // Array.unshift(name);
-        //解决真机不支持push方法问题
-        var arr = [name];
-        Array = arr.concat(Array);
-        //查找当前关系id
-        for (var j in Array2) {
-          if (name == Array2[j].text) {
-            console.log(Array2[j].text)
-            var roleId = Array2[j].value;
-            that.setData({
-              roleId: roleId
-            });
-            break;
-          }
-        }
-      }
-    }
-    console.log(Array)
+    this.getStudentInfoSelect(parents,name);
+  
     that.setData({
-      Array2: Array2,
-      Array: Array,
       id: id,
       stu: stu,
       userid: userid,
@@ -64,7 +33,67 @@ Page({
       cardInit: card, //解绑显示判断 （ 刚进页面时用）
       card: card,
     });
-    console.log('card=' + that.data.card)
+  },
+
+  //获取接送人列表
+  getStudentInfoSelect(parents, name) {
+    var that=this;
+    wx.request({
+      url: url + 'interface/schoolStatus/getStudentInfoSelect.do',
+      data: {
+        schoolId: wx.getStorageSync('schoolId'),
+        eduUnitId: wx.getStorageSync('unionid') //后来加的
+      },
+      method: 'GET',
+      header: {
+        token: wx.getStorageSync('token') // 默认值
+      },
+      success: function(res) {
+        wx.hideLoading();
+        if (res.data.rtnCode == 10000) {
+          var data = res.data.rtnData[0];
+          // 关系下个页面要用
+          var rleationSelect = [];
+          for (var i in data.rleationSelect) {
+            rleationSelect.push(data.rleationSelect[i].text)
+          }
+          wx.setStorageSync('rleationSelect', rleationSelect);
+          wx.setStorageSync('allRleationSelect', data.rleationSelect);
+
+          var _Array = wx.getStorageSync("rleationSelect"); //改装后的关系数组
+          var _Array2 = wx.getStorageSync("allRleationSelect"); //全部关系信息
+          //去除已存在的关系
+          if (parents.length) {
+            for (var i in _Array) {
+              for (var j in parents) {
+                if (_Array[i] == parents[j]) {
+                  _Array.splice(i, 1);
+                }
+              }
+            }
+            //添加当前关系
+            if (name && name != 'null') {
+              var arr = [name];
+              _Array = arr.concat(_Array);
+              for (var j in _Array2) {
+                if (name == _Array2[j].text) {
+                  console.log(_Array2[j].text)
+                  var roleId = _Array2[j].value;
+                  that.setData({
+                    roleId: roleId
+                  });
+                  break;
+                }
+              }
+            }
+            that.setData({
+              _Array2: _Array2,
+              _Array: _Array
+            });
+          }
+        }
+      }
+    })
   },
 
   //解绑
@@ -74,7 +103,7 @@ Page({
     wx.showModal({
       title: '解绑',
       content: "解绑后卡号为【" + a.oldCard + "】的接送卡将无法继续使用，确定解绑？",
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           console.log('用户点击确定')
           wx.request({
@@ -88,7 +117,7 @@ Page({
             header: {
               token: wx.getStorageSync('token') // 默认值
             },
-            success: function (res) {
+            success: function(res) {
               console.log(res.data)
 
               if (res.data.rtnCode == 10000) {
@@ -109,7 +138,7 @@ Page({
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
-     
+
       }
     })
 
@@ -135,7 +164,7 @@ Page({
         icon: 'none'
       });
       return;
-    } else if (!a.Array[a.index] && !a.name) {
+    } else if (!a._Array[a.index] && !a.name) {
       wx.showToast({
         title: '请选择接送人！',
         icon: 'none'
@@ -244,15 +273,15 @@ Page({
     });
     console.log(index)
     //查找当前关系id
-    for (var j in a.Array2) {
-      if (a.Array[index] == a.Array2[j].text) {
-        console.log(a.Array2[j].text)
-        var roleId = a.Array2[j].value;
+    for (var j in a._Array2) {
+      if (a._Array[index] == a._Array2[j].text) {
+        console.log(a._Array2[j].text)
+        var roleId = a._Array2[j].value;
         break;
       }
     }
     that.setData({
-      name: a.Array[index],
+      name: a._Array[index],
       roleId: roleId
     });
   },
@@ -305,6 +334,7 @@ Page({
               console.log('filePath==' + filePath)
 
               //七牛提供的上传方法
+              console.log("七牛提供的上传方法..............")
               qiniuUploader.upload(filePath, (res) => {
                 that.setData({
                   imageURL: res.imageURL

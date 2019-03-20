@@ -14,32 +14,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // var that = this;
-    // wx.showLoading({
-    //   title: '加载中',
-    // });
-    // wx.request({
-    //   url: url + 'interface/schoolStatus/getSchoolStatusDetail.do',
-    //   data: {
-    //     schoolId: wx.getStorageSync('schoolId')||'',
-    //     unionId: wx.getStorageSync('unionid')
-    //   },
-    //   method: 'GET',
-    //   header: {
-    //     token: wx.getStorageSync('token') // 默认值
-    //   },
-    //   success: function(res) {
-    //     // console.log(res.data)
-    //     wx.hideLoading();
-    //     if (res.data.rtnCode == 10000) {
-    //       that.setData({
-    //         dataList: res.data.rtnData,
-    //       });
-    //     } else {
-    //       console.log('查询学生接送卡绑定信息失败');
-    //     }
-    //   }
-    // });
+    var that = this;
+    wx.showLoading({
+      title: '加载中',
+    });
+    wx.request({
+      url: url + 'interface/schoolStatus/getSchoolStatusDetail.do',
+      data: {
+        schoolId: wx.getStorageSync('schoolId')||'',
+        unionId: wx.getStorageSync('unionid')
+      },
+      method: 'GET',
+      header: {
+        token: wx.getStorageSync('token') // 默认值
+      },
+      success: function(res) {
+        // console.log(res.data)
+        wx.hideLoading();
+        if (res.data.rtnCode == 10000) {
+          that.setData({
+            dataList: res.data.rtnData,
+          });
+        } else {
+          console.log('查询学生接送卡绑定信息失败');
+        }
+      }
+    });
   },
 
   // 搜索

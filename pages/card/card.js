@@ -45,6 +45,9 @@ Page({
             var thirdName = data.thirdName;
             var fourthName = data.fourthName;
             var parents = [firstName, secondName, thirdName, fourthName];
+            if (data.schoolId){
+              wx.setStorageSync('schoolId', data.schoolId);
+            }
             wx.setStorageSync('parents', parents);
             that.setData({
               userid: data.userId, //上传图片时要用
@@ -62,6 +65,22 @@ Page({
         this.selectUserBindCardNo();
       },1000);
     }
+
+    //获取七牛上传Token
+    wx.request({
+      url: url + 'interface/dynamic/getUptoken.do',
+      method: 'POST',
+      data: {},
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      success: function (res) {
+        if (res.data.rtnCode == 10000) {
+          wx.setStorageSync('baseUrl', res.data.rtnData[0].baseUrl);
+          wx.setStorageSync('uploadToken', res.data.rtnData[0].uploadToken);
+        } else { }
+      }
+    });
   },
   
   selectUserBindCardNo(){

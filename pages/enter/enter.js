@@ -21,6 +21,7 @@ Page({
       this.setData({getUnionidStatus});
     }
     var schoolId = options.schoolId
+    console.log('schoolId=' + schoolId)
     var scene = decodeURIComponent(options.scene);
     if ((scene && scene != 'undefined') || schoolId) {
       wx.navigateTo({

@@ -135,6 +135,8 @@ Page({
         schoolId: schoolId,
         eduUnitId: eduUnitId
       });
+      console.log(11111111111111111111111)
+      console.log(schoolId)
       wx.setStorageSync('schoolId', schoolId);
     } else {
       //通过分享
@@ -148,6 +150,8 @@ Page({
         eduUnitName: decodeURIComponent(eduUnitName),
         eduUnitId: eduUnitId
       });
+      console.log('111')
+      console.log(schoolId)
       wx.setStorageSync('schoolId', schoolId);
     }
     var attentionGZH = wx.getStorageSync('bindPublic'); //幼儿园是否关注公众号
